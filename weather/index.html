@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Project</title>
+    <meta name="description" content="Project of Weather API">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.12/css/weather-icons.min.css">
+
+    <style>
+    *{
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+    }
+    html{font-size: 15px;}
+    body{font-size: 16px;background:linear-gradient(45deg,#a4f164,#f19364); min-height: 100vh; }
+    
+    img{vertical-align: bottom;}
+
+    
+    input{width: 400px;height: 50px;border-radius: 40px;border: 2px solid #ccc;padding: 0 20px;
+    margin-top:70px;font-size: 25px;font-weight: 500;text-align: center;outline: none; 
+
+}
+input:focus {
+    border-color: #007BFF; /* Blue border on focus */
+  
+}
+#icon{display: none;}
+    label{position: relative;}
+    /* span{position: absolute;right: 20px;top: 50%;transform:translateY(-50%);} */
+    .main {
+    /* display: flex;
+    justify-content: center; centers horizontally */
+    /* align-items: center;     centers vertically */
+    /* height: 100vh;           full viewport height */
+    text-align: center;
+    padding-top: 0;          
+}
+
+.wrap2{
+    padding-top: 60px;text-align: center;font-weight: 700;
+}
+
+    button{height: 30px;width: 30px;margin-left: 25px;border-radius: 50%;border: none;
+        background: #fff;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+    span{font-size: 20px;}
+    h1{font-family: cursive,sans-serif ;font-size:34px;margin-top: 40px;text-align: center;}
+    p{font-size:34px;}
+    .mt{margin-top: 40px;}
+    .justify{justify-content: center;}
+    div i{font-size: 50px}
+    div p{margin-left: 20px;margin-top: 5px;}
+    .center{text-align: center;}
+    .p2{margin-top: 30px;}
+    .hide{display: none;}
+    /* fixed code */
+    .flex{display: flex;}
+    .img-resp{ max-width: 100%; height: auto;}
+    .container{max-width: 1200px;margin: auto;}
+    .row{display: grid;grid-template-columns: repeat(12,1fr);gap:0 1rem;}
+    .col-1{grid-column: span 1;}
+.col-2{grid-column: span 2;}
+.col-3{grid-column:span 3;}
+.col-4{grid-column:span 4;}
+.col-5{grid-column:span 5;}
+.col-6{grid-column:span 6;}
+.col-7{grid-column:span 7;}
+.col-8{grid-column:span 8;}
+.col-9{grid-column:span 9;}
+.col-10{grid-column:span 10;}
+.col-11{grid-column:span 11;}
+.col-12{grid-column:span 12;}
+
+
+
+@media screen and (max-width:980px){
+    .col-t-1{grid-column: span 1;}
+    .col-t-4{grid-column: span 4;}
+    .col-t-6{grid-column: span 6;}
+    .col-t-8{grid-column: span 8;}
+    .col-t-10{grid-column: span 10;}
+    .col-t-12{grid-column: span 12;}
+}
+@media screen and (max-width:767px){
+    .col-m-1{grid-column: span 1;}
+    .col-m-4{grid-column: span 4;}
+    .col-m-6{grid-column: span 6;}
+    .col-m-8{grid-column: span 8;}
+    .col-m-10{grid-column: span 10;}
+    .col-m-12{grid-column: span 12;}
+    p{font-size:24px;}
+    input{width: 260px;}
+    button{margin-left: 20px;}
+}
+@media screen and (max-width:480px){
+    .col-p-1{grid-column: span 1;}
+    .col-p-4{grid-column: span 4;}
+    .col-p-6{grid-column: span 6;}
+    .col-p-8{grid-column: span 8;}
+    .col-p-10{grid-column: span 10;}
+    .col-p-12{grid-column: span 12;}
+    p{font-size:20px;}
+    
+    
+}
+    </style>
+</head>
+<body>
+   <div class="main">
+    
+     <div class="container">
+        <div class="row">
+          
+            <div class="col-12 col-m-12 col-p-12">
+            <form name="weather">
+
+              <input type="text" id="search" placeholder="Enter City Name" aria-label="city"><button aria-label="icon"><span class="fa fa-magnifying-glass"></span></button>
+            </form>
+            
+        </div>
+      
+        <div class="col-12 col-m-12 col-p-12">
+            <h1 id="temp"></h1>
+        </div>
+        </div>
+     </div>
+   </div>
+   <div class="wrap2">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 col-m-6 col-p-6 ">
+                <p id="condition"></p>
+              </div>
+              <div class="col-6 col-m-6 col-p-6 ">
+                 <img src="" id="icon" class="img-resp" alt="icon">
+                </div>
+            <div class="col-6 col-m-6 col-p-6 mt">
+                <p id="city"></p>
+            </div>
+            <div class="col-6 col-m-6 col-p-6 mt">
+                <p id="state"></p>
+            </div>
+            
+
+              <div class="col-6 col-m-6 col-p-6 mt hide">
+               <div class="flex justify"> <i class="fa-solid fa-water"></i><p id="humidity"></p></div>
+               <p class="p2">Humidity</p>
+              </div>
+
+              <div class="col-6 col-m-6 col-p-6 mt hide" >
+                <div class="flex justify"><i class="fa-solid fa-wind"></i><p id="ws"></p></div>
+                <p class="p2">Wind Speed</p>
+               </div>
+
+        </div>
+    </div>
+   </div>
+    <script>
+       
+
+      let p=document.weather;
+      p.addEventListener('submit',function(e){
+        e.preventDefault();
+        let icon=document.getElementById('icon');
+        
+        document.getElementById('city').innerHTML=``;
+            document.getElementById('state').innerHTML=``;
+            document.getElementById('temp').innerHTML=``;
+            document.getElementById('condition').innerHTML=``;
+            document.getElementById('icon').src = ``;
+            document.getElementById('humidity').innerHTML=``;
+            document.getElementById('ws').innerHTML=``;
+            document.querySelectorAll('.hide').forEach(el => {
+    el.style.display = 'none';});
+    //  document.body.style.backgroundImage=""
+        
+        let search_val=document.getElementById('search').value;
+        //console.log(search_val);
+         let url=`https://api.weatherapi.com/v1/current.json?key=f8590b1cdc3c4099bf0153640252002&q=${search_val}&aqi=no`;
+        
+    
+            fetch(url).then(i=>i.json()).then(i=>{
+           // console.log(i)
+        
+            if (i.error) {
+                document.getElementById('temp').innerHTML= 'No matching city found';
+                 document.body.style.background="#ADD8E6";
+                 icon.style.display="none";
+                
+            } 
+
+         
+            else{
+            document.querySelectorAll('.hide').forEach(el => 
+            {el.style.display = 'block';});
+
+
+           
+            document.getElementById('city').innerHTML=`${i.location.name}`;
+            document.getElementById('state').innerHTML=`${i.location.region}`;
+            document.getElementById('temp').innerHTML=`${i.current.temp_c}&#176C`;
+            document.getElementById('condition').innerHTML=`${i.current.condition.text}`;
+            document.getElementById('icon').src = `https:${i.current.condition.icon}`;
+            document.getElementById('humidity').innerHTML=`${i.current.humidity}%`;
+            document.getElementById('ws').innerHTML=`${i.current.wind_kph}% km/h`;
+            icon.style.display="block";
+            // console.log(i.location.name);
+            // console.log(i.current.humidity);
+            // console.log(i.current.wind_mph);
+            // console.log(i.current.wind_kph);
+            // console.log(i.current.wind_degree);
+            
+            let condition=i.current.condition.text.toLowerCase();
+          //  console.log(condition);
+            
+            if (condition==='sunny') {
+                document.body.style.backgroundImage = "url('./images/sunny1.jpg')";
+            }  
+            else if (condition==='clear'){
+                document.body.style.backgroundImage = "url('./images/clear.avif')";
+            }
+            else if (condition === 'light freezing rain' || condition === 'light rain') {
+    document.body.style.backgroundImage = "url('./images/rainy.avif')";
+}
+
+            else if (condition==='mist'){
+                document.body.style.backgroundImage = "url('./images/misty.jpg')";
+            }
+            else if (condition==='partly cloudy'){
+                document.body.style.backgroundImage = "url('./images/cloudy.jpg')";
+            }
+            else if (condition==='moderate snow'){
+                document.body.style.backgroundImage = "url('./images/snow.webp')";
+            }  else {
+                // Default background
+                document.body.style.backgroundColor ="#ADD8E6";
+            }
+            document.body.style.backgroundSize = "cover";
+            document.body.style.backgroundRepeat = "no-repeat";
+            document.body.style.backgroundPosition = "center";
+        }  
+            
+         }) .catch(error => {
+        document.getElementById('temp').innerHTML = 'Unable to fetch data. Check your internet connection.';
+        document.body.style.background = "#ADD8E6";
+       // console.error('Fetch error:', error);
+    });
+        
+       
+      })
+    
+    
+       
+    </script>
+</body>
+</html>
